@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom'
-// import ListView from '../ListView/ListView';
+//import ListView from '../ListView/ListView';
 import './UserSignup.css';
-// import {Route, Link} from 'react-router-dom';
 
 class UserSignup extends Component {
   

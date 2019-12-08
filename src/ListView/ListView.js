@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
+import Items from '../Items';
+import AddItem from '../AddItem'
+import ListContext from '../ListContext';
 // import ReactDOM from 'react-dom';
 // import {Route, Link} from 'react-router-dom';
 
 class ListView extends Component {
+
+  static contextType = ListContext;
   
 
   render () {
@@ -15,45 +20,12 @@ class ListView extends Component {
           <li><a href="#signup-form">Sign-up</a></li>
         </ul>
       </nav>
-      <header role="banner">
-          <h1>Your Gift Lists</h1>
-      </header>
-
-      <section>
-        <header>
-            <h3>Sam's Christmas List</h3>
-        </header>
-        <ul>
-          <li>Legos 
-            <button>Remove</button>
-          </li>
-          <li>Fingerlings Untamed T-Rex 
-            <button>Remove</button>
-          </li>
-          <li>Mini Basketball Hoop
-            <button>Remove</button>
-          </li>
-          <li>Cozmo the Toy Robot
-            <button>Remove</button>
-          </li>
-          <li>Tabletop Tennis
-            <button>Remove</button>
-          </li>
-          <li>Exploding Kittens Card Game
-            <button>Remove</button>
-          </li>
-          <li>Jenga
-            <button>Remove</button>
-          </li>
-        </ul>
-     
-            <button type='submit'>Add New Item</button>
-            <button type='submit'>Save</button>          
-
-      </section>
-
-    <footer className="footer">&copy;2019 Danielle Hutchings</footer>
-    </div>
+      <h1 className="center blue-text">Your Christmas List</h1>
+        <Items items={this.state.items} deleteItem={this.deleteItem} />
+        <AddItem addItem={this.addItem} /> 
+      
+      <footer className="footer">&copy;2019 Danielle Hutchings</footer>
+      </div>
     );
   }
 
