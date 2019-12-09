@@ -21,7 +21,7 @@ class ListView extends Component {
         </ul>
       </nav>
       <h1 className="center blue-text">Your Christmas List</h1>
-        <Items items={this.state.items} deleteItem={this.deleteItem} />
+        <Items items={this.context.items} deleteItem={this.deleteItem} />
         <AddItem addItem={this.addItem} /> 
       
       <footer className="footer">&copy;2019 Danielle Hutchings</footer>

@@ -38,10 +38,6 @@ class App extends Component {
           exact path='/ListView/ListView' 
           component={ListView} 
         />
-        <Route
-          exact path='/' 
-          component={App} 
-        />
       </>
     );
   }
@@ -57,7 +53,7 @@ class App extends Component {
       <ListContext.Provider value={contextValue}>
       <div className='App'>
         <nav className="navigation">
-        {this.renderRoutes()}
+          {this.renderRoutes()}
           <ul className="nav">
             <li><Link to="/">Home</Link></li>
             <li><a href="#signin-form">Sign-in</a></li>
