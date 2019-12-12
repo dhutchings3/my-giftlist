@@ -3,7 +3,8 @@ import { Route, Link } from 'react-router-dom';
 import './app.css';
 import ListView from './ListView/ListView';
 import ListContext from './ListContext';
-import LandingPage from './LandingPage';
+import LandingPage from './LandingPage'
+import ListError from './ListError';
 
 class App extends Component {
   state = {
@@ -41,6 +42,7 @@ class App extends Component {
 
     return (
       <ListContext.Provider value={contextValue}>
+      <ListError>
       <div className='App'>
         <nav className="navigation">
           <ul className="nav">
@@ -60,6 +62,7 @@ class App extends Component {
 
         <footer className="footer">&copy;2019 Danielle Hutchings</footer>
       </div>
+      </ListError>
       </ListContext.Provider>
     );
   }
