@@ -8,44 +8,46 @@ export default class UserSignup extends React.Component {
     super(props);
       this.state = {
         firstName: '',
-        touched: false,
+        firstNameTouched: false,
 
         lastName: '',
-        touched: false,
+        lastNameTouched: false,
 
         email: '',
-        touched: false,
+        emailTouched: false,
 
         password: '',
-        touched: false,
+        passwordTouched: false,
       }
   }
 
-  updateFirstName(ifirstName) {
+  updateFirstName(firstName) {
+    console.log(this.state)
       this.setState({ 
-          firstName: ifirstName,
-          touched: true, 
+          firstName: firstName,
+          firstNameTouched: true, 
       });     
+    console.log(this.state)
   }
 
   updateLastName(lastName) {
       this.setState({ 
           lastName: lastName, 
-          touched: true, 
+          lastNameTouched: true, 
       });
   }
 
   updateEmail(email) {
       this.setState({ 
           email: email, 
-          touched: true,
+          emailTouched: true,
       });
   }
   
   updatePassword(password) {
     this.setState({ 
         password: password, 
-        touched: true,
+        passwordTouched: true,
     });
   }
   
@@ -108,7 +110,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updateFirstName(e.target.value)}
               />
-              {this.state.touched && <ValidationError message={firstNameError()} /> }
+              {this.state.firstNameTouched && <ValidationError message={firstNameError()} /> }
               <label htmlFor="last-name">Last name</label>
               <input
                 defaultValue='Last Name' 
@@ -119,7 +121,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updateLastName(e.target.value)}
               /> 
-              {this.state.touched && <ValidationError message={lastNameError()} /> } 
+              {this.state.lastNameTouched && <ValidationError message={lastNameError()} /> } 
               <label htmlFor="username">Email</label>
               <input
                 defaultValue='Email' 
@@ -130,7 +132,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updateEmail(e.target.value)}
               /> 
-              {this.state.touched && <ValidationError message={emailError()} />}
+              {this.state.emailTouched && <ValidationError message={emailError()} />}
               <label htmlFor="password">Password</label>
               <input
                 defaultValue='Password' 
@@ -141,7 +143,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updatePassword(e.target.value)}
               /> 
-              {this.state.touched && <ValidationError message={passwordError()} />}
+              {this.state.passwordTouched && <ValidationError message={passwordError()} />}
               <NavLink
                 className='listView'
                 to={`/ListView/ListView`}
