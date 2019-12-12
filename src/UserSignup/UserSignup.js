@@ -21,11 +21,11 @@ export default class UserSignup extends React.Component {
       }
   }
 
-  updateFirstName(firstName) {
+  updateFirstName(ifirstName) {
       this.setState({ 
-          firstName: firstName,
+          firstName: ifirstName,
           touched: true, 
-      });        
+      });     
   }
 
   updateLastName(lastName) {
@@ -51,7 +51,7 @@ export default class UserSignup extends React.Component {
   
 
   validateFirstName() {
-    const firstName = this.state.firstName.toString().trim();
+    let firstName = this.state.firstName.toString().trim();
     if (firstName.length === 0) {
         return 'First name is required';
     } else  if (firstName.length < 3) {
@@ -60,7 +60,7 @@ export default class UserSignup extends React.Component {
   }
 
   validateLastName() {
-    const lastName = this.state.lastName.toString().trim();
+    let lastName = this.state.lastName.toString().trim();
     if (lastName.length === 0) {
         return 'Last name is required';
     } else  if (lastName.length < 3) {
@@ -69,7 +69,7 @@ export default class UserSignup extends React.Component {
   }
 
   validateEmail() {
-    const email = this.state.email.toString().trim();
+    let email = this.state.email.toString().trim();
     if (email.length === 0) {
         return 'Email is required';
     } else  if (email.length < 3) {
@@ -78,7 +78,7 @@ export default class UserSignup extends React.Component {
   }
 
   validatePassword() {
-    const password = this.state.password.toString().trim();
+    let password = this.state.password.toString().trim();
     if (password.length === 0) {
         return 'Password is required';
     } else  if (password.length < 3) {
@@ -108,7 +108,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updateFirstName(e.target.value)}
               />
-              {this.state.touched && <ValidationError message={firstNameError} />}
+              {this.state.touched && <ValidationError message={firstNameError()} /> }
               <label htmlFor="last-name">Last name</label>
               <input
                 defaultValue='Last Name' 
@@ -119,7 +119,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updateLastName(e.target.value)}
               /> 
-              {this.state.touched && <ValidationError message={lastNameError} />}
+              {this.state.touched && <ValidationError message={lastNameError()} /> } 
               <label htmlFor="username">Email</label>
               <input
                 defaultValue='Email' 
@@ -130,7 +130,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updateEmail(e.target.value)}
               /> 
-              {this.state.touched && <ValidationError message={emailError} />}
+              {this.state.touched && <ValidationError message={emailError()} />}
               <label htmlFor="password">Password</label>
               <input
                 defaultValue='Password' 
@@ -141,7 +141,7 @@ export default class UserSignup extends React.Component {
                 aria-required='true'
                 onChange={e => this.updatePassword(e.target.value)}
               /> 
-              {this.state.touched && <ValidationError message={passwordError} />}
+              {this.state.touched && <ValidationError message={passwordError()} />}
               <NavLink
                 className='listView'
                 to={`/ListView/ListView`}
