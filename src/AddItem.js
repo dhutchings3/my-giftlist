@@ -13,7 +13,7 @@ class AddItem extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.addItemo(this.state);
+        this.props.addItem(this.state);
         this.setState({
             content: ''
         })

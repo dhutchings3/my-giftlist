@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom'
-//import ListView from '../ListView/ListView';
 import './UserSignup.css';
 
 class UserSignup extends Component {
@@ -15,7 +14,7 @@ class UserSignup extends Component {
         <section>
         <form className='signup-form' id='signup-form'>
               <label htmlFor="first-name" required >First name</label>
-              <input placeholder='First Name' type="text" name='first-name' id='first-name' />
+              <input placeholder='First Name' type="text" name='first-name' id='first-name' required />
               <label htmlFor="last-name">Last name</label>
               <input type="text" name='last-name' id='last-name' placeholder='Last Name' />
               <label htmlFor="username">Email</label>
@@ -26,7 +25,7 @@ class UserSignup extends Component {
                 className='listView'
                 to={`/ListView/ListView`}
               >
-                Sign-in
+                Sign-up
               </NavLink>
         </form>
       </section>
