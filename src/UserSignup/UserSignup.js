@@ -1,98 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import ValidationError from '../ValidationError';
 import './UserSignup.css';
 
 export default class UserSignup extends React.Component {
-  constructor(props) {
-    super(props);
-      this.state = {
-        firstName: '',
-        firstNameTouched: false,
-
-        lastName: '',
-        lastNameTouched: false,
-
-        email: '',
-        emailTouched: false,
-
-        password: '',
-        passwordTouched: false,
-      }
-  }
-
-  updateFirstName(firstName) {
-    console.log(this.state)
-      this.setState({ 
-          firstName: firstName,
-          firstNameTouched: true, 
-      });     
-    console.log(this.state)
-  }
-
-  updateLastName(lastName) {
-      this.setState({ 
-          lastName: lastName, 
-          lastNameTouched: true, 
-      });
-  }
-
-  updateEmail(email) {
-      this.setState({ 
-          email: email, 
-          emailTouched: true,
-      });
-  }
   
-  updatePassword(password) {
-    this.setState({ 
-        password: password, 
-        passwordTouched: true,
-    });
-  }
-  
-
-  validateFirstName() {
-    let firstName = this.state.firstName.toString().trim();
-    if (firstName.length === 0) {
-        return 'First name is required';
-    } else  if (firstName.length < 3) {
-        return 'Name must be at least 3 characters long';
-    }
-  }
-
-  validateLastName() {
-    let lastName = this.state.lastName.toString().trim();
-    if (lastName.length === 0) {
-        return 'Last name is required';
-    } else  if (lastName.length < 3) {
-        return 'Last name must be at least 3 characters long';
-    }
-  }
-
-  validateEmail() {
-    let email = this.state.email.toString().trim();
-    if (email.length === 0) {
-        return 'Email is required';
-    } else  if (email.length < 3) {
-        return 'Email must be at least 3 characters long';
-    }
-  }
-
-  validatePassword() {
-    let password = this.state.password.toString().trim();
-    if (password.length === 0) {
-        return 'Password is required';
-    } else  if (password.length < 3) {
-        return 'Password must be at least 3 characters long';
-    }
-  }
-
   render () {
-    const firstNameError = this.validateFirstName
-    const lastNameError = this.validateLastName
-    const emailError = this.validateEmail
-    const passwordError = this.validatePassword
     return (
       <div className='UserSignup'>
         <header>
@@ -100,50 +12,47 @@ export default class UserSignup extends React.Component {
         </header>
         <section>
         <form className='signup-form' id='signup-form' >
+            <div className='first-name-field'>
               <label htmlFor="first-name">First name</label>
               <input 
-                defaultValue='First Name' 
                 type="text" 
                 name='firstName' 
                 id='firstName'
                 aria-label='First name of user goes here'
                 aria-required='true'
-                onChange={e => this.updateFirstName(e.target.value)}
+                required 
               />
-              {this.state.firstNameTouched && <ValidationError message={firstNameError()} /> }
+              </div>
+              <div className="last-name-field">
               <label htmlFor="last-name">Last name</label>
               <input
-                defaultValue='Last Name' 
                 type="text" 
                 name='lastName' 
                 id='lastName'
                 aria-label='Last name of user goes here'
                 aria-required='true'
-                onChange={e => this.updateLastName(e.target.value)}
-              /> 
-              {this.state.lastNameTouched && <ValidationError message={lastNameError()} /> } 
+              />
+              </div> 
+              <div className="email-field">
               <label htmlFor="username">Email</label>
               <input
-                defaultValue='Email' 
                 type="text" 
                 name='email' 
                 id='email'
                 aria-label='Email of user goes here'
                 aria-required='true'
-                onChange={e => this.updateEmail(e.target.value)}
               /> 
-              {this.state.emailTouched && <ValidationError message={emailError()} />}
+              </div>
+              <div className="password-field">
               <label htmlFor="password">Password</label>
               <input
-                defaultValue='Password' 
                 type="text" 
                 name='password' 
                 id='password'
                 aria-label='Password of user goes here'
                 aria-required='true'
-                onChange={e => this.updatePassword(e.target.value)}
-              /> 
-              {this.state.passwordTouched && <ValidationError message={passwordError()} />}
+                /> 
+              </div>
               <NavLink
                 className='listView'
                 to={`/ListView/ListView`}
@@ -151,12 +60,6 @@ export default class UserSignup extends React.Component {
                 <button
                   type='submit' 
                   className='signup-button'
-                  disabled= {
-                    this.validateFirstName() ||
-                    this.validateLastName() ||
-                    this.validateEmail() ||
-                    this.validatePassword()
-                    }
                 >
                 Sign-up
                 </button>
