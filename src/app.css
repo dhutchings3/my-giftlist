@@ -33,7 +33,8 @@ h1 {
 
 footer {
     margin-top: 80px;
-    position: relative;
+    position: fixed;
+    bottom: 0px;
     height: 30px;
     background-color: darkgray;
     width: 100%;
