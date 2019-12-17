@@ -29,6 +29,7 @@ class AddItem extends Component {
             onChange={this.handleChange}
             value={this.state.content}
           />
+          <button>Submit</button>
         </form>
       </div>
     );
