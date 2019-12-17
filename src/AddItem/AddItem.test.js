@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ListView from "./ListView";
+import AddItem from "./AddItem";
 
-describe("ListView", () => {
+describe("AddItem", () => {
   it("should render without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<ListView />, div);
+    ReactDOM.render(<AddItem />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
