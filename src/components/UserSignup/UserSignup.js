@@ -1,65 +1,109 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./UserSignup.css";
+import React from 'react';
+import AuthApiService from '../../services/auth-api-service';
+// import './UserSignup.css';
 
-export default class UserSignup extends React.Component {
+class UserSignup extends React.Component {
+  static defaultProps = {
+    location: {},
+    history: {
+      push: () => {},
+    }
+  }
+
+  state = { error: null }
+
+  handleRegistrationSuccess = () => {
+    const { location, history } = this.props
+    const destination = (location.state || {}).from || '/login'
+    history.push(destination)
+  };
+
+  handleSubmit = e => {
+    e.preventDefault()
+    const { first_name, email, password } = e.target
+
+    this.setState({ error: null })
+
+    AuthApiService.postUser({
+      first_name: first_name.value,
+      user_email: email.value,
+      password: password.value
+    })
+      .then(res => {
+        first_name.value = ''
+        email.value = ''
+        password.value = ''
+        this.handleRegistrationSuccess()
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+        // console.log('error', res.error)
+      })
+  };
+
   render() {
     return (
-      <div className="UserSignup">
-        <header>
-          <h3>Start Your List Now!</h3>
-        </header>
-        <section>
-          <form className="signup-form" id="signup-form">
-            <div className="first-name-field">
-              <label htmlFor="first-name">First name</label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                aria-label="First name of user goes here"
-                aria-required="true"
-                required
-              />
+      <div className='signup-form'>
+        <form className='signup-form' onSubmit={this.handleSubmit}>
+          <div className='signup-field'>
+            <label
+              htmlFor='first_name'
+              className='signup__label'
+            >Name</label>
+            <input
+              className='signup__input'
+              type='text'
+              name='first_name'
+              id='first_name'
+              placeholder='Name'
+            />
+          </div>
+          <div className='signup-field'>
+            <label
+              htmlFor='email'
+              className='signup__label'
+            >Email Address</label>
+             <input
+              className='signup__input'
+              type='text'
+              name='email'
+              id='email'
+              placeholder='Email'
+            />
+          </div>
+          <div className='signup-field'>
+            <label
+              htmlFor='password'
+              className='signup__label'
+            >Password</label><br/>
+            <input
+              className='signup__input'
+              type='password'
+              name='password'
+              id='password'
+              placeholder='Password'
+            />
+          </div>
+          <div className='signup__password-req'>
+              <strong>
+                Password requirements:<br/>
+                Must be between 8 and 72 characters<br/>
+                Must not begin or end with a space<br/>
+                Must contain an uppercase, lowercase, number and special character
+              </strong>
             </div>
-            <div className="last-name-field">
-              <label htmlFor="last-name">Last name</label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                aria-label="Last name of user goes here"
-                aria-required="true"
-              />
-            </div>
-            <div className="email-field">
-              <label htmlFor="username">Email</label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                aria-label="Email of user goes here"
-                aria-required="true"
-              />
-            </div>
-            <div className="password-field">
-              <label htmlFor="password">Password</label>
-              <input
-                type="text"
-                name="password"
-                id="password"
-                aria-label="Password of user goes here"
-                aria-required="true"
-              />
-            </div>
-            <NavLink className="listView" to={`/ListView/ListView`}>
-              <button type="submit" className="signup-button">
-                Sign-up
-              </button>
-            </NavLink>
-          </form>
-        </section>
+          <button type='submit' value='SignUp'>
+            Sign Up
+          </button>
+        </form>
+        <div className='error-message'>
+          <strong>
+            {this.state.error}
+          </strong>
+        </div>
       </div>
-    );
-  }
-}
+    )
+  };
+};
+
+export default UserSignup;

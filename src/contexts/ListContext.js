@@ -1,27 +1,22 @@
 import React, { Component } from 'react'
 
-export const nullList = {
-  author: {},
-  tags: [],
-}
-
 const ListContext = React.createContext({
-  list: nullList,
-  comments: [],
+  list: [],
+  items: [],
   error: null,
   setError: () => {},
   clearError: () => { },
   setList: () => {},
   clearList: () => {},
-  setComments: () => {},
-  addComment: () => {},
+  addItem: () => {},
+  clearItem: () => {},
 })
 
 export default ListContext
 
 export class ListProvider extends Component {
   state = {
-    list: nullList,
+    list: [],
     error: null,
   };
 
@@ -34,37 +29,46 @@ export class ListProvider extends Component {
     this.setState({ error: null })
   }
 
-  setList = list => {
-    this.setState({ list })
+  setLists = lists => {
+    this.setState({ lists })
   }
 
-  setComments = comments => {
-    this.setState({ comments })
+  setItems = items => {
+    this.setState({ items })
   }
 
-  clearList = () => {
-    this.setList(nullList)
-    this.setComments([])
+  addItem = item => {
+    this.setItems([
+      ...this.state.items,
+      item
+    ])
   }
 
-  addComment = comment => {
+  updateItem = item => {
+    this.setItems([
+      ...this.state.items,
+      item
+    ])
+  }
+
+  addList = list => {
     this.setComments([
-      ...this.state.comments,
-      comment
+      ...this.state.lists,
+      list
     ])
   }
 
   render() {
     const value = {
       list: this.state.list,
-      comments: this.state.comments,
+      items: this.state.itemss,
       error: this.state.error,
       setError: this.setError,
       clearError: this.clearError,
-      setList: this.setList,
-      setComments: this.setComments,
-      clearList: this.clearList,
-      addComment: this.addComment,
+      setLists: this.setLists,
+      setItems: this.setItems,
+      addItem: this.addItem,
+      addList: this.addList
     }
     return (
       <ListContext.Provider value={value}>
