@@ -20,17 +20,17 @@ class UserSignup extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const { first_name, username, password } = e.target
+    const { name, username, password } = e.target
 
     this.setState({ error: null })
 
     AuthApiService.postUser({
-      first_name: first_name.value,
-      user_username: username.value,
+      name: name.value,
+      username: username.value,
       password: password.value
     })
       .then(res => {
-        first_name.value = ''
+        name.value = ''
         username.value = ''
         password.value = ''
         this.handleRegistrationSuccess()
@@ -47,14 +47,14 @@ class UserSignup extends React.Component {
         <form className='signup-form' onSubmit={this.handleSubmit}>
           <div className='signup-field'>
             <label
-              htmlFor='first_name'
+              htmlFor='name'
               className='signup__label'
             >Name</label>
             <input
               className='signup__input'
               type='text'
-              name='first_name'
-              id='first_name'
+              name='name'
+              id='name'
               placeholder='Name'
             />
           </div>
