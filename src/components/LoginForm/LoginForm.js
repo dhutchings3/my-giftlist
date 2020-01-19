@@ -22,21 +22,22 @@ class LoginForm extends React.Component {
   handleSubmitJwtAuth = e => {
     e.preventDefault()
     this.setState({ error: null })
-    const { email, password } = e.target
+    const { username, password } = e.target
     AuthApiService.postLogin({
-      user_email: email.value,
+      username: username.value,
       password: password.value
     })
       .then(res => {
-        email.value = ''
+        username.value = ''
         password.value = ''
         TokenService.saveAuthToken(res.authToken)
         TokenService.saveUserId(res.userId)
         this.handleLoginSuccess()
       })
-      .catch(res => {
-        this.setState({ error: res.error })
-        console.log('error', res.error)
+      .catch(error => {
+        // this.setState({ 
+          error: error.toString()
+        // })
       })
   };
 
@@ -50,11 +51,11 @@ class LoginForm extends React.Component {
           <div className='username-login'>
             <div className='test_login'>
               <i>
-                Test login: giftlistUser1@gmail.com / Giftlist1!
+                Test login: giftlistUser1 / Giftlist1!
               </i>
             </div>
-            <label htmlFor='username-login'>Email Address</label>
-            <input type='email' name='email' id='username-login' required />
+            <label htmlFor='username-login'>Username</label>
+            <input type='username' name='username' id='username-login' required />
           </div>
           <div className='password-login'>
             <label htmlFor='password-login'>Password</label>
