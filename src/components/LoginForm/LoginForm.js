@@ -35,9 +35,9 @@ class LoginForm extends React.Component {
         this.handleLoginSuccess()
       })
       .catch(error => {
-        // this.setState({ 
-          error: error.toString()
-        // })
+        this.setState({ 
+          error: `There was an error logging in`
+        })
       })
   };
 
