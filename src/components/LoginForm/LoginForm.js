@@ -1,7 +1,7 @@
 import React from 'react';
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
-// import './LoginForm.css';
+import './LoginForm.css';
 
 class LoginForm extends React.Component {
   static defaultProps = {
@@ -15,7 +15,7 @@ class LoginForm extends React.Component {
 
   handleLoginSuccess = () => {
     const { location, history } = this.props
-    const destination = (location.state || {}).from || '/lists'
+    const destination = (location.state || {}).from || '/browseitems'
     history.push(destination)
   };
 
@@ -34,10 +34,8 @@ class LoginForm extends React.Component {
         TokenService.saveUserId(res.userId)
         this.handleLoginSuccess()
       })
-      .catch(error => {
-        this.setState({ 
-          error: `There was an error logging in`
-        })
+      .catch(res => {
+        this.setState({ error: res.error })
       })
   };
 
@@ -51,7 +49,7 @@ class LoginForm extends React.Component {
           <div className='username-login'>
             <div className='test_login'>
               <i>
-                Test login: giftlistUser1 / Giftlist1!
+                Test login: GiftlistUser1 / password
               </i>
             </div>
             <label htmlFor='username-login'>Username</label>

@@ -1,18 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import TokenService from '../../services/token-service'
-// import './Header.css'
+import './Header.css'
 
-export default class Header extends Component {
+class Header extends React.Component {
   handleLogoutClick = () => {
     TokenService.clearAuthToken()
   }
 
   renderLogoutLink() {
     return (
-      <div className='Header__logged-in'>
+      <div className='header__logged-in'>
         <Link
-          onClick={this.handleLogoutClick}
+          onClick={ 
+            () => {this.handleLogoutClick();
+                  this.props.toggle()}
+          }
           to='/'>
           Logout
         </Link>
@@ -22,32 +25,35 @@ export default class Header extends Component {
 
   renderLoginLink() {
     return (
-      <div className='Header__not-logged-in'>
+      <div className='header__not-logged-in'>
         <Link
-          to='/register'>
-          Register
-        </Link>
-        <Link
-          to='/login'>
-          Log in
+          to='/signup'>
+          Create an account
         </Link>
       </div>
     )
   }
 
   render() {
+    let headerClasses;
+    this.props.show ? headerClasses = 'header open' : headerClasses = 'header'
+
     return (
-      <nav className='Header'>
-        <h1>
-          <Link to='/'>
-            {' '}
+      <nav className={headerClasses}>
+        <div className='header__navbar-nav-items'>
+          <Link to={'/browseitems'} className='header__text-link' onClick={this.props.toggle}>
+            Browse items
+          </Link>
+          <Link to={'/list'} className='header_text-link' onClick={this.props.toggle}>
             My Giftlist
           </Link>
-        </h1>
-        {TokenService.hasAuthToken()
-          ? this.renderLogoutLink()
-          : this.renderLoginLink()}
+          {TokenService.hasAuthToken()
+            ? this.renderLogoutLink()
+            : this.renderLoginLink()}
+        </div>
       </nav>
     )
-  }
-}
+  };
+};
+
+export default Header;

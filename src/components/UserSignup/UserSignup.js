@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthApiService from '../../services/auth-api-service';
-// import './UserSignup.css';
+import './UserSignup.css';
 
 class UserSignup extends React.Component {
   static defaultProps = {
@@ -20,24 +20,23 @@ class UserSignup extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    const { name, username, password } = e.target
+    const { first_name, username, password } = e.target
 
     this.setState({ error: null })
 
     AuthApiService.postUser({
-      name: name.value,
+      first_name: first_name.value,
       username: username.value,
       password: password.value
     })
       .then(res => {
-        name.value = ''
+        first_name.value = ''
         username.value = ''
         password.value = ''
         this.handleRegistrationSuccess()
       })
       .catch(res => {
         this.setState({ error: res.error })
-        // console.log('error', res.error)
       })
   };
 
@@ -47,15 +46,15 @@ class UserSignup extends React.Component {
         <form className='signup-form' onSubmit={this.handleSubmit}>
           <div className='signup-field'>
             <label
-              htmlFor='name'
+              htmlFor='first_name'
               className='signup__label'
-            >Name</label>
+            >First Name</label>
             <input
               className='signup__input'
               type='text'
-              name='name'
-              id='name'
-              placeholder='Name'
+              name='first_name'
+              id='first_name'
+              placeholder='First Name'
             />
           </div>
           <div className='signup-field'>

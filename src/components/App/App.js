@@ -1,51 +1,68 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
+import UserSignup from '../UserSignup/UserSignup';
 import LoginForm from '../LoginForm/LoginForm';
+import BrowseItems from '../BrowseItems/BrowseItems';
+import List from '../List/List';
 import ListApiService from '../../services/list-api-service';
 import AppContext from '../../contexts/AppContext';
-import UserSignup from '../UserSignup/UserSignup';
 import config from '../../config';
 import './app.css';
+import Nav from '../Nav/Nav';
+import Header from '../Header/Header';
+import Backdrop from '../Backdrop/Backdrop';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lists: [],
+      items: [],
+      list: [],
       error: null,
+      sideDrawerOpen: false,
     }
-    
+    this.headerToggleClickHandler = this.headerToggleClickHandler.bind(this)
   }
 
   static contextType = AppContext;
 
+  headerToggleClickHandler = () => {
+    this.setState((prevState) => {
+      return {headerOpen: !prevState.headerOpen}
+    })
+  }
+
+  backdropClickHandler = () => {
+    this.setState({ headeropen: false })
+  }
+
   componentDidMount() {
-    fetch(`${config.API_ENDPOINT}/lists`)
-      .then((listsRes) => {
-        if (!listsRes.ok) {
-          throw new Error(listsRes.statusText)
+    fetch(`${config.API_ENDPOINT}/items`)
+      .then((itemsRes) => {
+        if (!itemsRes.ok) {
+          throw new Error(itemsRes.statusText)
         }
-        return listsRes.json()
+        return itemsRes.json()
       })
       .then(data => {
         this.setState({
-          lists: data,
+          items: data,
           error: null
         })
       })
       .catch(err => {
         this.setState({
-          error: 'Sorry, could not get lists at this time.'
+          error: 'Sorry, could not get items at this time.'
         })
       })
 
-    fetch(`${config.API_ENDPOINT}/:list_id/items`)
-      .then((listViewRes) => {
-        if (!listViewRes.ok) {
-          throw new Error(listViewRes.statusText)
+    fetch(`${config.API_ENDPOINT}/list`)
+      .then((listRes) => {
+        if (!listRes.ok) {
+          throw new Error(listRes.statusText)
         }
-        return listViewRes.json()
+        return listRes.json()
       })
       .then(data => {
         this.setState({
@@ -55,13 +72,13 @@ class App extends React.Component {
       })
       .catch(err => {
         this.setState({
-          error: 'Sorry, could not get list at this time.'
+          error: 'Sorry, could not get items at this time.'
         })
       })
   }
 
-  handleAddItemToList = (id) => {
-    ListApiService.postListItem(id, 'laptop', '3')
+  handleAddToList = (id) => {
+    ListApiService.postListItem(id)
       .then((data) =>{
         this.setState({
           list: [...this.state.list, data]
@@ -71,22 +88,7 @@ class App extends React.Component {
         console.log('error', err)
       })
     if (this.state.list.includes(id)) {
-      alert('This is item is already on your list.')
-    }
-  }
-
-  handleAddList = (id) => {
-    ListApiService.postList(id, 'My Birthday Wishlist', '3')
-      .then((data) =>{
-        this.setState({
-          lists: [...this.state.lists, data]
-        })
-      })
-      .catch(err => {
-        console.log('error', err)
-      })
-    if (this.state.list.includes(id)) {
-      alert('This is List already exists on your account.')
+      alert('This is already on your list!')
     }
   }
 
@@ -99,29 +101,30 @@ class App extends React.Component {
     this.setState({ list: updatedList })
   }
 
-  handleRemoveList = (id) => {
-    ListApiService.deleteList(id)
-    let array = [...this.state.lists]
-    let updatedLists = array.filter(list => {
-      return list.id !== id
-    })
-    this.setState({ lists: updatedLists })
-  }
-
   render() {
-    console.log('lists', this.state.lists)
+    console.log('list', this.state.list)
     const contextValue = {
-      handleAddItemToList: this.handleAddItemToList,
-      handleAddList: this.handleAddList,
-      lists: this.state.lists,
-      items: this.state.items
+      handleAddToList: this.handleAddToList,
+      items: this.state.items,
+      list: this.state.list
     };
 
-    // let { lists } = this.state;
+    let { items } = this.state;
+    let backdrop;
+
+    if (this.state.headerOpen) {
+      backdrop = <Backdrop click={this.backdropClickHandler}/>
+    };
 
     return (
       <AppContext.Provider value={contextValue}>
         <main className="App" style={{height: '100%' }}>
+          <Nav headerClickHandler={this.headerToggleClickHandler}/>
+          <Header
+            show={this.state.headerOpen}
+            toggle={this.headerToggleClickHandler}
+          />
+          {backdrop}
           <Switch>
             <>
               <div className='content' aria-live='polite'>
@@ -139,6 +142,25 @@ class App extends React.Component {
                   exact
                   path='/login'
                   component={LoginForm}
+                />
+                <Route
+                  path='/browseitems'
+                  render={() => (
+                    <BrowseItems
+                      items={this.state.items}
+                      list={this.state.list}
+                    />
+                  )}
+                />
+                <Route
+                  path='/list'
+                  render={() => (
+                    <List
+                      items={items}
+                      list={this.state.list}
+                      handleRemoveItem={this.handleRemoveItem}
+                    />
+                  )}
                 />
               </div>
             </>

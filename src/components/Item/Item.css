@@ -1,0 +1,46 @@
+.add-item-button {
+    margin: 5px;
+  }
+  
+  .list-item {
+    border: 1px solid #696969;
+    margin: 15px;
+    padding: 2%;
+  }
+  
+  img {
+    height: 100px;
+    width: 75px;
+  }
+
+  .item-link {
+    display: none;
+  }
+  
+  @media (min-width: 768px) {
+    header {
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      padding: 10%;
+    }
+    .add-item-button {
+      margin: 5px;
+      padding: 20px;
+    }
+  
+    .list-item {
+      border: 1px solid #696969;
+      margin: 80px;
+      padding: 40px;
+    }
+
+    .item-link {
+      display: none;
+    }
+  
+    img {
+      height: 200px;
+      width: 150px;
+    }
+  }

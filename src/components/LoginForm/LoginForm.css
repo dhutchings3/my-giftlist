@@ -16,11 +16,15 @@ input {
     margin: 8%;
   }
   
+  form {
+    margin-top: 15px;
+  }
+  
   .error-message {
     color: red;
   }
   
-  .signup__password-req {
+  .login__demo-creds {
     font-size: 14px;
     text-align: left;
     display: block;
@@ -37,34 +41,35 @@ input {
       padding: 10%;
     }
   
-    .signup__input {
+    input {
       border: 1px solid #696969;
       display: block;
       font-size: 1em;
-      margin: 0px 0px 25px 0px;
+      margin: 50px;
+      margin-top: 0px;
       padding: 20px;
       text-align: left;
-      width: 100%;
+      width: 80%;
     }
   
-    .signup__label {
+    label {
       text-align: right;
       display: block;
       clear: both;
       float: left;
-      margin: 0px;
+      margin: 50px;
       margin-bottom: 20px;
     }
   
-    .signup-form {
-      margin: 1%;
+    .login-form {
+      margin-top: 10px;
     }
   
-    .signup__password-req {
+    .login__demo-creds {
       font-size: 14px;
       text-align: left;
       display: block;
-      margin: 0px 0px 25px 0px;
+      margin: 0px 0px 0px 50px;
       color: #008000;
     }
   }
