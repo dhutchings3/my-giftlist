@@ -10,14 +10,14 @@ class ItemList extends React.Component {
   render() {
 
     let userId = Number(TokenService.getUserId());
-    const listItems = this.props.list.filter(item => {
+    const listThings = this.props.list.filter(thing => {
 
-      return item.user_id === userId
+      return thing.user_id === userId
     });
-    const items = this.props.items.filter(item => {
-      const listItemIds = listItems.map(x => x.item_id);
+    const items = this.props.items.filter(thing => {
+      const listThingIds = listThings.map(x => x.item_id);
 
-      const exists = listItemIds.includes(item.id)
+      const exists = listThingIds.includes(thing.id)
       return !exists
     });
 
