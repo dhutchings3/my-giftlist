@@ -15,7 +15,7 @@ class LoginForm extends React.Component {
 
   handleLoginSuccess = () => {
     const { location, history } = this.props
-    const destination = (location.state || {}).from || '/browseitems'
+    const destination = (location.state || {}).from || '/items'
     history.push(destination)
   };
 
@@ -28,14 +28,18 @@ class LoginForm extends React.Component {
       password: password.value
     })
       .then(res => {
+        console.log(res, 'res')
         username.value = ''
         password.value = ''
         TokenService.saveAuthToken(res.authToken)
-        TokenService.saveUserId(res.userId)
+        console.log(res.user_id, 'this is user id')
+        TokenService.saveUserId(res.user_id)
         this.handleLoginSuccess()
       })
-      .catch(res => {
-        this.setState({ error: res.error })
+      .catch(err => {
+        this.setState({
+          error: 'Sorry, could not login at this time.'
+        })
       })
   };
 

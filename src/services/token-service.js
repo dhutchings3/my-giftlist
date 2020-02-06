@@ -21,7 +21,6 @@ const TokenService = {
   },
 
   getUserId() {
-    console.log(config.USER_ID)
     return window.localStorage.getItem(config.USER_ID)
   },
 

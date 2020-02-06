@@ -2,6 +2,7 @@ import React from 'react';
 
 const ListContext = React.createContext({
   list: [],
+  setList: () => {},
   error: null,
 })
 

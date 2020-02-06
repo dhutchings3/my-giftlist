@@ -1,7 +1,10 @@
 import React from 'react';
+import AppContext from '../../contexts/AppContext'
 import './Item.css';
 
 class Item extends React.Component {
+
+  static contextType = AppContext;
 
   render() {
     return (
@@ -14,7 +17,7 @@ class Item extends React.Component {
           />
         </div>
         <div className='item-link'>
-          <p>{this.props.items.link}</p>
+          <p>{this.props.item.link}</p>
         </div>
         <button
           className='add-item-button'

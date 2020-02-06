@@ -34,7 +34,7 @@ class Nav extends React.Component {
 
   toBrowse() {
     return (
-      <Link to={'/browseitems'} className='text-link'>
+      <Link to={'/items'} className='text-link'>
         My-Giftlist<span className='keep-white'>.</span>
       </Link>
     )
@@ -69,7 +69,7 @@ class Nav extends React.Component {
           </div>
           <div className='spacer' />
           <div className='navbar-nav-items'>
-            <Link to={'/browseitems'} className='text-link'>
+            <Link to={'/items'} className='text-link'>
               Browse Items <span className='keep-white'>|</span>
             </Link>
             {' '}

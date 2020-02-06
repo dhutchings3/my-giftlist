@@ -12,6 +12,7 @@ import './app.css';
 import Nav from '../Nav/Nav';
 import Header from '../Header/Header';
 import Backdrop from '../Backdrop/Backdrop';
+// import PrivateRoute from '../../PrivateRoute'
 
 class App extends React.Component {
   constructor(props) {
@@ -20,12 +21,12 @@ class App extends React.Component {
       items: [],
       list: [],
       error: null,
-      sideDrawerOpen: false,
+      headerOpen: false,
     }
     this.headerToggleClickHandler = this.headerToggleClickHandler.bind(this)
   }
 
-  static contextType = AppContext;
+  // static contextType = AppContext;
 
   headerToggleClickHandler = () => {
     this.setState((prevState) => {
@@ -34,48 +35,57 @@ class App extends React.Component {
   }
 
   backdropClickHandler = () => {
-    this.setState({ headeropen: false })
+    this.setState({ headerOpen: false })
   }
 
   componentDidMount() {
     fetch(`${config.API_ENDPOINT}/items`)
-      .then((itemsRes) => {
-        if (!itemsRes.ok) {
-          throw new Error(itemsRes.statusText)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText)
         }
-        return itemsRes.json()
+        return res.json()
       })
       .then(data => {
         this.setState({
           items: data,
           error: null
         })
+        console.log(this.state)
       })
       .catch(err => {
         this.setState({
           error: 'Sorry, could not get items at this time.'
         })
       })
+    }
 
-    fetch(`${config.API_ENDPOINT}/list`)
-      .then((listRes) => {
-        if (!listRes.ok) {
-          throw new Error(listRes.statusText)
-        }
-        return listRes.json()
-      })
-      .then(data => {
-        this.setState({
-          list: data,
-          error: null
-        })
-      })
-      .catch(err => {
-        this.setState({
-          error: 'Sorry, could not get items at this time.'
-        })
-      })
-  }
+  //   fetch(`${config.API_ENDPOINT}/list`, {
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       'authorization': `bearer ${TokenService.getAuthToken()}` 
+  //     },
+  //     })
+  //     .then((listRes) => {
+  //       if (!listRes.ok) {
+  //         throw new Error(listRes.statusText)
+  //       }
+  //       return listRes.json()
+  //     })
+  //     .then(data => {
+  //       this.setState({
+  //         list: data,
+  //         error: null
+  //       })
+  //       console.log(this.state, 'this is my state')
+  //     })
+  //     .catch(err => {
+  //       this.setState({
+  //         error: 'Sorry, could not get items at this time.'
+  //       })
+  //     })
+  // }
+  // //move call to list
 
   handleAddToList = (id) => {
     ListApiService.postListItem(id)
@@ -83,6 +93,7 @@ class App extends React.Component {
         this.setState({
           list: [...this.state.list, data]
         })
+        console.log(this.state)
       })
       .catch(err => {
         console.log('error', err)
@@ -93,6 +104,7 @@ class App extends React.Component {
   }
 
   handleRemoveItem = (id) => {
+    console.log(id)
     ListApiService.deleteListItem(id)
     let array = [...this.state.list]
     let updatedList = array.filter(listItem => {
@@ -101,10 +113,17 @@ class App extends React.Component {
     this.setState({ list: updatedList })
   }
 
+  setError = (error) => {
+    this.setState({
+      error: error
+    })
+  }
+
   render() {
-    console.log('list', this.state.list)
     const contextValue = {
       handleAddToList: this.handleAddToList,
+      handleRemoveItem: this.handleRemoveItem,
+      setError: this.setError,
       items: this.state.items,
       list: this.state.list
     };
@@ -143,8 +162,9 @@ class App extends React.Component {
                   path='/login'
                   component={LoginForm}
                 />
+                {/* <PrivateRoute */}
                 <Route
-                  path='/browseitems'
+                  path='/items'
                   render={() => (
                     <BrowseItems
                       items={this.state.items}
@@ -152,6 +172,7 @@ class App extends React.Component {
                     />
                   )}
                 />
+                {/* <PrivateRoute */}
                 <Route
                   path='/list'
                   render={() => (
