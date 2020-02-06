@@ -36,7 +36,7 @@ const ListApiService = {
       )
 
   },
-  deletelistItem(listItemId) {
+  deleteListItem(listItemId) {
     return fetch(`${config.API_ENDPOINT}/list/${listItemId}`, {
       method: 'DELETE',
       headers: {

@@ -12,6 +12,7 @@ import './app.css';
 import Nav from '../Nav/Nav';
 import Header from '../Header/Header';
 import Backdrop from '../Backdrop/Backdrop';
+import TokenService from '../../services/token-service'
 // import PrivateRoute from '../../PrivateRoute'
 
 class App extends React.Component {
@@ -58,34 +59,45 @@ class App extends React.Component {
           error: 'Sorry, could not get items at this time.'
         })
       })
-    }
+    
+    fetch(`${config.API_ENDPOINT}/list`, {
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}` 
+      },
+      })
+      .then((listRes) => {
+        if (!listRes.ok) {
+          throw new Error(listRes.statusText)
+        }
+        return listRes.json()
+      })
+      .then(data => {
+        this.setState({
+          list: data,
+          error: null
+        })
+        console.log(this.state, 'this is my state')
+      })
+      .catch(err => {
+        this.setState({
+          error: 'Sorry, could not get items at this time.'
+        })
+      })
+  }
+  //move call to list
+  
+  handleRemoveItem = (id) => {
+    ListApiService.deleteListItem(id)
+    let array = [...this.state.list]
+    let updatedList = array.filter(listItem => {
+      return listItem.id !== id
+    })
+    // console.log(updatedList)
+    this.setState({ list: updatedList })
+    // console.log(this.state.list)
+  }
 
-  //   fetch(`${config.API_ENDPOINT}/list`, {
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'authorization': `bearer ${TokenService.getAuthToken()}` 
-  //     },
-  //     })
-  //     .then((listRes) => {
-  //       if (!listRes.ok) {
-  //         throw new Error(listRes.statusText)
-  //       }
-  //       return listRes.json()
-  //     })
-  //     .then(data => {
-  //       this.setState({
-  //         list: data,
-  //         error: null
-  //       })
-  //       console.log(this.state, 'this is my state')
-  //     })
-  //     .catch(err => {
-  //       this.setState({
-  //         error: 'Sorry, could not get items at this time.'
-  //       })
-  //     })
-  // }
-  // //move call to list
 
   handleAddToList = (id) => {
     ListApiService.postListItem(id)
@@ -103,15 +115,16 @@ class App extends React.Component {
     }
   }
 
-  handleRemoveItem = (id) => {
-    console.log(id)
-    ListApiService.deleteListItem(id)
-    let array = [...this.state.list]
-    let updatedList = array.filter(listItem => {
-      return listItem.id !== id
-    })
-    this.setState({ list: updatedList })
-  }
+  // handleRemoveItem = (id) => {
+  //   ListApiService.deleteListItem(id)
+  //   let array = [...this.state.list]
+  //   let updatedList = array.filter(listItem => {
+  //     return listItem.id !== id
+  //   })
+  //   console.log(updatedList)
+  //   this.setState({ list: updatedList })
+  //   console.log(this.state.list)
+  // }
 
   setError = (error) => {
     this.setState({

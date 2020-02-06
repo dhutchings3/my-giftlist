@@ -3,7 +3,8 @@ import React from 'react'
 const AppContext = React.createContext({
   items: [],
   list: [],
-  handleAddtoList: () => {}
+  handleAddtoList: () => {},
+  handleRemoveItem: () => {}
 })
 
 export default AppContext

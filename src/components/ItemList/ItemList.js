@@ -22,9 +22,15 @@ class ItemList extends React.Component {
     });
 
     let updatedItems = Object.keys(items).map((item, i) => (
-      <Item key={i} id={i} item={items[item]} handleAddToList={this.context.handleAddToList}/>
+ 
+      <Item 
+        key={i} 
+        id={i} 
+        item={items[item]} 
+        handleAddToList={this.context.handleAddToList}
+        />
     ));
-
+      console.log(updatedItems, 'updated items')
     return (
       <div>
         {updatedItems}
