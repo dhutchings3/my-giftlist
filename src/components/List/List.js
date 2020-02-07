@@ -56,7 +56,7 @@ class List extends React.Component {
   render() {
     // console.log(this.context.list, 'this.state list')
       const userItems = this.props.list
-      console.log(this.props.list)
+      console.log(this.props.list, 'giftlist list')
       const itemsToDisplay = userItems.map((listItem, i) => {
         return (
           <div key={i} className='displayed-items'>

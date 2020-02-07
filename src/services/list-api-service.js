@@ -1,5 +1,6 @@
 import TokenService from '../services/token-service'
 import config from '../config'
+import ItemList from '../components/ItemList/ItemList'
 
 const ListApiService = {
   getListItems() {
@@ -18,7 +19,7 @@ const ListApiService = {
           : res.json()
       )
   },
-  postListItem(item_id) {
+  postListItem(id, user_id, item_id, giftlist_user, username, first_name, item_name, graphic, link) {
     return fetch(`${config.API_ENDPOINT}/list`, {
       method: 'POST',
       headers: {
@@ -26,7 +27,20 @@ const ListApiService = {
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        item_id: item_id,
+        id: id,
+        user_id: user_id,
+        item_id: item_id
+        // giftlist_user: {
+        //   id: id,
+        //   username: username,
+        //   first_name: first_name
+        // },
+        // items: {
+        //   id: id,
+        //   item_name: item_name,
+        //   grapic: graphic,
+        //   link: link
+        // }
       })
     })
       .then(res =>

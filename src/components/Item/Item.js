@@ -7,6 +7,8 @@ class Item extends React.Component {
   static contextType = AppContext;
 
   render() {
+    console.log(this.props.item.id)
+    console.log(this.props, 'user id')
     return (
       <div className='giftlist-item'>
         <h2>{this.props.item.item_name}</h2>
@@ -21,7 +23,7 @@ class Item extends React.Component {
         </div>
         <button
           className='add-item-button'
-          id={this.props.item.id}
+          id={this.props.item.id, this.props.id, this.props.user_id, this.props.user_name, this.props.first_name}
           onClick={
             () => {this.props.handleAddToList(this.props.item.id)
                    alert('Added!')}
