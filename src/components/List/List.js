@@ -16,6 +16,8 @@ class List extends React.Component {
 
   static contextType = AppContext;
 
+  static defaultProps = { list: [] };
+
   // componentDidMount() {
   // fetch(`${config.API_ENDPOINT}/list`, {
   //   headers: {
@@ -55,9 +57,14 @@ class List extends React.Component {
 
   render() {
     // console.log(this.context.list, 'this.state list')
-      const userItems = this.props.list
+      // const userItems = this.props.list
       console.log(this.props.list, 'giftlist list')
-      const itemsToDisplay = userItems.map((listItem, i) => {
+      // return (
+      //   <h1>test</h1>
+      // )
+      const itemsToDisplay = this.props.list.map((listItem, i) => {
+        if (this.props.list.length > 0) {
+  
         return (
           <div key={i} className='displayed-items'>
             <h2>{listItem.items.item_name}</h2>
@@ -71,22 +78,35 @@ class List extends React.Component {
               {' '}
               <button
                 className='delete-button'
-                id={listItem.id}
-                onClick={() => this.props.handleRemoveItem(listItem.id)}
+                id={listItem.items.id}
+                onClick={() => this.props.handleRemoveItem(listItem.items.id)}
               >
                 Delete
               </button>
             </div>
           </div>
         )
-      });
-      return (
-        <div>
-          <h1>Your Giftlist</h1>
-          {itemsToDisplay}
-        </div>
-      )
+        }
+        else return(
+          <h1>empty list</h1>
+        )
+      })
+      
+      // return (
+      //   <div>
+      //     <h1>Your Giftlist</h1>
+      //     {itemsToDisplay}
+      //   </div>
+      // )
+
+    return (
+      <div>
+        <h1>Your Giftlist</h1>
+        {itemsToDisplay}
+      </div>
+    )
     }
+  
   };
   
   export default List;

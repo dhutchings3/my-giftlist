@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import UserSignup from '../UserSignup/UserSignup';
 import LoginForm from '../LoginForm/LoginForm';
@@ -93,19 +93,40 @@ class App extends React.Component {
     let updatedList = array.filter(listItem => {
       return listItem.id !== id
     })
-    // console.log(updatedList)
     this.setState({ list: updatedList })
-    // console.log(this.state.list)
+    this.props.history.push('/list')
   }
 
 
   handleAddToList = (id) => {
     ListApiService.postListItem(id)
+    // let secondArray = [...this.state.list]
+    // let array = [...this.state.items]
       .then((data) =>{
-        this.setState({
-          list: [...this.state.list, data]
-        })
-        console.log(this.state)
+        // let secondArray = [...this.state.list]
+        // let array = [...this.state.items]
+        // let updatedBrowseItems = array.filter(data => {
+          console.log(data, 'this is data')
+          this.setState({
+            items: this.state.items.filter(data => data.id !== id)
+          })
+          this.setState({
+            list: this.state.list.push(data => data.id === id)
+          })
+          // return data.id !== id
+        // })
+        // this.setState({ items: updatedBrowseItems})
+      // })
+      // .then((data) => {
+      //   console.log(...this.state.list, 'state of list in app')
+      // let secondArray = [...this.state.list]
+      //   // this.setState({ items: updatedBrowseItems})
+      //   let updatedList = secondArray.filter(data => {
+      //     return data.id === id
+      //   })
+      //   this.setState({ list: updatedList})
+               // map through browselist items, remove id from browse items and add to list
+        this.props.history.push('/list')
       })
       .catch(err => {
         console.log('error', err)
@@ -114,17 +135,6 @@ class App extends React.Component {
       alert('This is already on your list!')
     }
   }
-
-  // handleRemoveItem = (id) => {
-  //   ListApiService.deleteListItem(id)
-  //   let array = [...this.state.list]
-  //   let updatedList = array.filter(listItem => {
-  //     return listItem.id !== id
-  //   })
-  //   console.log(updatedList)
-  //   this.setState({ list: updatedList })
-  //   console.log(this.state.list)
-  // }
 
   setError = (error) => {
     this.setState({
@@ -205,4 +215,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);

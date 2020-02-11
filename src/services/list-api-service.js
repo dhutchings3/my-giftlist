@@ -19,7 +19,7 @@ const ListApiService = {
           : res.json()
       )
   },
-  postListItem(id, user_id, item_id, giftlist_user, username, first_name, item_name, graphic, link) {
+  postListItem(item_id) {
     return fetch(`${config.API_ENDPOINT}/list`, {
       method: 'POST',
       headers: {
@@ -27,8 +27,8 @@ const ListApiService = {
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        id: id,
-        user_id: user_id,
+        // id: id,
+        // user_id: user_id,
         item_id: item_id
         // giftlist_user: {
         //   id: id,
