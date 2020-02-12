@@ -89,52 +89,50 @@ class App extends React.Component {
 
   handleRemoveItem = (id) => {
     ListApiService.deleteListItem(id)
-    let array = [...this.state.list]
-    let updatedList = array.filter(listItem => {
-      return listItem.id !== id
+    let listLength = this.state.list.length
+    console.log(this.state.list.length)
+    this.setState({
+      list: this.state.list.filter(listItem => listItem.id !== id)
     })
-    this.setState({ list: updatedList })
+    if (listLength === this.state.list.length) {
     this.props.history.push('/list')
+    }
   }
 
 
   handleAddToList = (id) => {
+    console.log(this.state.items, 'items before add to list')
     ListApiService.postListItem(id)
-    // let secondArray = [...this.state.list]
-    // let array = [...this.state.items]
-      .then((data) =>{
-        // let secondArray = [...this.state.list]
-        // let array = [...this.state.items]
-        // let updatedBrowseItems = array.filter(data => {
-          console.log(data, 'this is data')
-          this.setState({
-            items: this.state.items.filter(data => data.id !== id)
-          })
-          this.setState({
-            list: this.state.list.push(data => data.id === id)
-          })
-          // return data.id !== id
-        // })
-        // this.setState({ items: updatedBrowseItems})
-      // })
-      // .then((data) => {
-      //   console.log(...this.state.list, 'state of list in app')
-      // let secondArray = [...this.state.list]
-      //   // this.setState({ items: updatedBrowseItems})
-      //   let updatedList = secondArray.filter(data => {
-      //     return data.id === id
-      //   })
-      //   this.setState({ list: updatedList})
-               // map through browselist items, remove id from browse items and add to list
-        this.props.history.push('/list')
-      })
-      .catch(err => {
-        console.log('error', err)
-      })
-    if (this.state.list.includes(id)) {
-      alert('This is already on your list!')
-    }
+    console.log(this.state.items, 'items after post')
+    console.log(this.state.items.filter(listItem => listItem.id === id), 'item to add')
+    let newItem = this.state.items.filter(listItem => listItem.id === id)
+    let updatedList = this.state.list.push(newItem)
+    this.setState({
+      list: updatedList
+    })
+    console.log(this.state.list, 'list after push')
+    this.setState({
+      items: this.state.items.filter(listItem => listItem.id !== id)
+    })
+    console.log(this.state.items, 'items')
+    console.log(this.state.list, 'list after updates')
   }
+
+    //   })  
+    //     console.log(data)
+    //     this.setState({
+    //       list: [...this.state.list, data]
+    //     })
+    //     console.log(this.state)
+    //   })
+    //   .catch(err => {
+    //     console.log('error', err)
+    //   })
+    // if (this.state.list.includes(id)) {
+    //   alert('This is already on your list!')
+    // }
+    // this.props.history.push('/refresh/list')
+  // }
 
   setError = (error) => {
     this.setState({
@@ -150,6 +148,8 @@ class App extends React.Component {
       items: this.state.items,
       list: this.state.list
     };
+    console.log(this.state.items)
+    console.log(this.state.list)
 
     let { items } = this.state;
     let backdrop;
@@ -157,7 +157,6 @@ class App extends React.Component {
     if (this.state.headerOpen) {
       backdrop = <Backdrop click={this.backdropClickHandler}/>
     };
-
     return (
       <AppContext.Provider value={contextValue}>
         <main className="App" style={{height: '100%' }}>

@@ -1,8 +1,8 @@
 import React from 'react';
-import TokenService from '../../services/token-service';
-import config from '../../config';
+// import TokenService from '../../services/token-service';
+// import config from '../../config';
 import AppContext from '../../contexts/AppContext';
-import ListApiService from '../../services/list-api-service';
+// import ListApiService from '../../services/list-api-service';
 import './List.css';
 
 class List extends React.Component {
