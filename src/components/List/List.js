@@ -124,7 +124,7 @@ class List extends React.Component {
                 <button
                   className='delete-button'
                   id={listItem.items.id}
-                  onClick={() => this.props.handleRemoveItem(listItem.items.id)}
+                  onClick={() => this.props.handleRemoveItem(listItem.id)}
                 >
                   Delete
                 </button>

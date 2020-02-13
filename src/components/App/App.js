@@ -89,34 +89,25 @@ class App extends React.Component {
 
   handleRemoveItem = (id) => {
     ListApiService.deleteListItem(id)
-    let listLength = this.state.list.length
-    console.log(this.state.list.length)
     this.setState({
-      list: this.state.list.filter(listItem => listItem.id !== id)
+      list: this.state.list.filter(listItem => listItem.id !== id),
     })
-    if (listLength === this.state.list.length) {
-    this.props.history.push('/list')
-    }
+
+    this.props.history.push('/items')
   }
 
 
   handleAddToList = (id) => {
-    console.log(this.state.items, 'items before add to list')
     ListApiService.postListItem(id)
-    console.log(this.state.items, 'items after post')
-    console.log(this.state.items.filter(listItem => listItem.id === id), 'item to add')
     let newItem = this.state.items.filter(listItem => listItem.id === id)
     let updatedList = this.state.list.concat(newItem)
     this.setState({
       list: updatedList
     })
-    console.log(this.state.list, 'list after push')
     this.setState({
       items: this.state.items.filter(listItem => listItem.id !== id)
     })
     this.props.history.push('/list')
-    console.log(this.state.items, 'items')
-    console.log(this.state.list, 'list after updates')
   }
 
     //   })  
