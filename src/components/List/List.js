@@ -63,33 +63,75 @@ class List extends React.Component {
       //   <h1>test</h1>
       // )
       const itemsToDisplay = this.props.list.map((listItem, i) => {
-        if (this.props.list.length > 0) {
-  
-        return (
-          <div key={i} className='displayed-items'>
-            <h2>{listItem.items.item_name}</h2>
-            <div>
-              <img
-                src={listItem.items.graphic}
-                alt='item graphic'
-              />
+        if (typeof(listItem.items) == 'undefined') {
+          return (
+            <div key={i} className='displayed-items'>
+              <h2>{listItem.item_name}</h2>
+              <div>
+                <img
+                  src={listItem.graphic}
+                  alt='item graphic'
+                />
+              </div>
+              <div>
+                {' '}
+                <button
+                  className='delete-button'
+                  id={listItem.id}
+                  onClick={() => this.props.handleRemoveItem(listItem.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-            <div>
-              {' '}
-              <button
-                className='delete-button'
-                id={listItem.items.id}
-                onClick={() => this.props.handleRemoveItem(listItem.items.id)}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        )
+          )
         }
-        else return(
-          <h1>empty list</h1>
-        )
+  
+        // return (
+        //   <div key={i} className='displayed-items'>
+        //     <h2>{listItem.items.item_name}</h2>
+        //     <div>
+        //       <img
+        //         src={listItem.items.graphic}
+        //         alt='item graphic'
+        //       />
+        //     </div>
+        //     <div>
+        //       {' '}
+        //       <button
+        //         className='delete-button'
+        //         id={listItem.items.id}
+        //         onClick={() => this.props.handleRemoveItem(listItem.items.id)}
+        //       >
+        //         Delete
+        //       </button>
+        //     </div>
+        //   </div>
+        // )
+      
+        else {
+          return (
+            <div key={i} className='displayed-items'>
+              <h2>{listItem.items.item_name}</h2>
+              <div>
+                <img
+                  src={listItem.items.graphic}
+                  alt='item graphic'
+                />
+              </div>
+              <div>
+                {' '}
+                <button
+                  className='delete-button'
+                  id={listItem.items.id}
+                  onClick={() => this.props.handleRemoveItem(listItem.items.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          )
+        }
       })
       
       // return (

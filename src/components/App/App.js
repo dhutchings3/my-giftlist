@@ -106,7 +106,7 @@ class App extends React.Component {
     console.log(this.state.items, 'items after post')
     console.log(this.state.items.filter(listItem => listItem.id === id), 'item to add')
     let newItem = this.state.items.filter(listItem => listItem.id === id)
-    let updatedList = this.state.list.push(newItem)
+    let updatedList = this.state.list.concat(newItem)
     this.setState({
       list: updatedList
     })
@@ -114,6 +114,7 @@ class App extends React.Component {
     this.setState({
       items: this.state.items.filter(listItem => listItem.id !== id)
     })
+    this.props.history.push('/list')
     console.log(this.state.items, 'items')
     console.log(this.state.list, 'list after updates')
   }
