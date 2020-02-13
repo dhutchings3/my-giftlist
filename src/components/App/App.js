@@ -93,22 +93,29 @@ class App extends React.Component {
       list: this.state.list.filter(listItem => listItem.id !== id),
     })
 
-    this.props.history.push('/items')
+    // this.props.history.push('/items')
   }
 
 
   handleAddToList = (id) => {
+    if (this.state.list.includes(id)) {
+      alert('This item is already on your list')
+    }
+    else {
     ListApiService.postListItem(id)
     let newItem = this.state.items.filter(listItem => listItem.id === id)
     let updatedList = this.state.list.concat(newItem)
     this.setState({
       list: updatedList
     })
-    this.setState({
-      items: this.state.items.filter(listItem => listItem.id !== id)
-    })
+    // if (this.state.list.includes(id)) {
+    //   alert('This item is already on your list')
+    // this.setState({
+    //   items: this.state.items.filter(listItem => listItem.id !== id)
+    // })
     this.props.history.push('/list')
   }
+}
 
     //   })  
     //     console.log(data)
