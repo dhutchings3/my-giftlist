@@ -85,53 +85,35 @@ class App extends React.Component {
         })
       })
   }
-  //move call to list
 
-  handleRemoveItem = (id) => {
-    ListApiService.deleteListItem(id)
+  handleRemoveItem = id => {
+    ListApiService.deleteListItem(id);
+    const originalList = [...this.state.list];
+    let index = originalList.findIndex(listItem => listItem.id === id);
+    let itemToRemove = originalList.splice(index, 1);
+    const updatedItems = [...this.state.items, ...itemToRemove];
     this.setState({
-      list: this.state.list.filter(listItem => listItem.id !== id),
-    })
-
-    // this.props.history.push('/items')
-  }
-
-
-  handleAddToList = (id) => {
+      list: originalList,
+      items: updatedItems
+    });
+    this.props.history.push('/items')
+  };
+  handleAddToList = id => {
     if (this.state.list.includes(id)) {
-      alert('This item is already on your list')
+      alert("This item is already on your list");
+    } else {
+      ListApiService.postListItem(id);
+      const originalItems = [...this.state.items];
+      let index = originalItems.findIndex(listItem => listItem.id === id);
+      let newItem = originalItems.splice(index, 1);
+      let updatedList = this.state.list.concat(newItem); //[...this.state.list, ...newItem]
+      this.setState({
+        list: updatedList,
+        items: originalItems
+      });
+      this.props.history.push("/list");
     }
-    else {
-    ListApiService.postListItem(id)
-    let newItem = this.state.items.filter(listItem => listItem.id === id)
-    let updatedList = this.state.list.concat(newItem)
-    this.setState({
-      list: updatedList
-    })
-    // if (this.state.list.includes(id)) {
-    //   alert('This item is already on your list')
-    // this.setState({
-    //   items: this.state.items.filter(listItem => listItem.id !== id)
-    // })
-    this.props.history.push('/list')
-  }
-}
-
-    //   })  
-    //     console.log(data)
-    //     this.setState({
-    //       list: [...this.state.list, data]
-    //     })
-    //     console.log(this.state)
-    //   })
-    //   .catch(err => {
-    //     console.log('error', err)
-    //   })
-    // if (this.state.list.includes(id)) {
-    //   alert('This is already on your list!')
-    // }
-    // this.props.history.push('/refresh/list')
-  // }
+  };
 
   setError = (error) => {
     this.setState({
@@ -147,8 +129,6 @@ class App extends React.Component {
       items: this.state.items,
       list: this.state.list
     };
-    console.log(this.state.items)
-    console.log(this.state.list)
 
     let { items } = this.state;
     let backdrop;
