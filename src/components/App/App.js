@@ -127,7 +127,7 @@ class App extends React.Component {
       handleRemoveItem: this.handleRemoveItem,
       setError: this.setError,
       items: this.state.items,
-      list: this.state.list
+      list: this.state.list,
     };
 
     let { items } = this.state;
