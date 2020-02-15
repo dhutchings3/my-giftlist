@@ -54,8 +54,8 @@ const ListApiService = {
     return fetch(`${config.API_ENDPOINT}/list/${listItemId}`, {
       method: 'DELETE',
       headers: {
-        // 'content-type': 'application/json',
-        // 'authorization': `bearer ${TokenService.getAuthToken()}`,
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
     })
       .then(res =>
