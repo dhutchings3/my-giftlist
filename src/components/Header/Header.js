@@ -25,9 +25,11 @@ class Header extends React.Component {
 
   renderLoginLink() {
     return (
-      <div className='header__not-logged-in'>
+      <div className='header__not-logged'>
         <Link
-          to='/signup'>
+          to='/signup' 
+          className='header__not-logged-in'
+          >
           Create an account
         </Link>
       </div>
@@ -41,10 +43,10 @@ class Header extends React.Component {
     return (
       <nav className={headerClasses}>
         <div className='header__navbar-nav-items'>
-          <Link to={'/browseitems'} className='header__text-link' onClick={this.props.toggle}>
+          <Link to={'/items'} className='header__text-link' onClick={this.props.toggle}>
             Browse items
           </Link>
-          <Link to={'/list'} className='header_text-link' onClick={this.props.toggle}>
+          <Link to={'/list'} className='header__text-link' onClick={this.props.toggle}>
             My Giftlist
           </Link>
           {TokenService.hasAuthToken()

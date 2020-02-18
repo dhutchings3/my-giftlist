@@ -26,6 +26,17 @@
     margin: 0.5rem 0;
     color: #280505;
   }
+
+  .header__not-logged-in {
+    height: 100;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: #280505;
+  }
   
   .header__text-link:hover,
   .header__text-link:active {

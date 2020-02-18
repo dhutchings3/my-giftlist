@@ -13,7 +13,7 @@ import Nav from '../Nav/Nav';
 import Header from '../Header/Header';
 import Backdrop from '../Backdrop/Backdrop';
 import TokenService from '../../services/token-service'
-// import PrivateRoute from '../PrivateRoute';
+import PrivateRoute from '../PrivateRoute';
 
 class App extends React.Component {
   constructor(props) {
@@ -163,8 +163,7 @@ class App extends React.Component {
                   path='/login'
                   component={LoginForm}
                 />
-                {/* <PrivateRoute */}
-                <Route
+                <PrivateRoute
                   path='/items'
                   render={() => (
                     <BrowseItems
@@ -173,8 +172,7 @@ class App extends React.Component {
                     />
                   )}
                 />
-                {/* <PrivateRoute */}
-                <Route
+                <PrivateRoute
                   path='/list'
                   render={() => (
                     <List
