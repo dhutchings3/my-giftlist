@@ -14,6 +14,7 @@ import Header from "../Header/Header";
 import Backdrop from "../Backdrop/Backdrop";
 import TokenService from "../../services/token-service";
 import PrivateRoute from "../PrivateRoute";
+import ItemsApiService from "../../services/items-api-service"
 
 class App extends React.Component {
   constructor(props) {
@@ -108,6 +109,15 @@ class App extends React.Component {
     });
     this.props.history.push("/list");
   };
+
+  handleAddNewItem = url => {
+    ItemsApiService.postItem(url);
+    let newList = this.state.list;
+    newList.push(url)
+    this.setState({
+      items: newList
+    })
+  }
 
   setError = error => {
     this.setState({
