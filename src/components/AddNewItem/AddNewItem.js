@@ -11,7 +11,7 @@ class AddNewItem extends React.Component {
     static contextType = AppContext;
 
     render() {
-  
+  console.log(this.ref)
       return (
         <div className='add-new-item'>
           <h2>Add New Item</h2>
@@ -23,7 +23,7 @@ class AddNewItem extends React.Component {
             className='add-new-item-button'
             id='add-new-item-link'
             onClick={
-              () => {this.props.handleAddNewItem(this.ref.value)}
+              () => {this.props.handleAddNewItem(this.ref.value), console.log(this.ref.value)}
             }
           >
             Add to List
