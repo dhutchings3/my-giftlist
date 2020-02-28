@@ -4,7 +4,8 @@ const AppContext = React.createContext({
   items: [],
   list: [],
   handleAddtoList: () => {},
-  handleRemoveItem: () => {}
+  handleRemoveItem: () => {},
+  handleAddNewItem: () => {}
 })
 
 export default AppContext

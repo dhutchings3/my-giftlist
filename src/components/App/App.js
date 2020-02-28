@@ -111,11 +111,13 @@ class App extends React.Component {
   };
 
   handleAddNewItem = url => {
-    ItemsApiService.postItem(url);
+    ItemsApiService.postItem(url)
+    .then(newItem => {
     let newList = this.state.list;
-    newList.push(url)
+    newList.push(newItem)
     this.setState({
       items: newList
+    })
     })
   }
 
@@ -129,6 +131,7 @@ class App extends React.Component {
     const contextValue = {
       handleAddToList: this.handleAddToList,
       handleRemoveItem: this.handleRemoveItem,
+      handleAddNewItem: this.handleAddNewItem,
       setError: this.setError,
       items: this.state.items,
       list: this.state.list

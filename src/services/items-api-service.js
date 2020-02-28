@@ -2,7 +2,7 @@ import TokenService from '../services/token-service'
 import config from '../config'
 
 const ItemsApiService = {
-  postListItem(url) {
+  postItem(url) {
     return fetch(`${config.API_ENDPOINT}/items`, {
       method: 'POST',
       headers: {
