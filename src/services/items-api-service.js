@@ -10,20 +10,7 @@ const ItemsApiService = {
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        // id: id,
-        // user_id: user_id,
         site_Url: url
-        // giftlist_user: {
-        //   id: id,
-        //   username: username,
-        //   first_name: first_name
-        // },
-        // items: {
-        //   id: id,
-        //   item_name: item_name,
-        //   grapic: graphic,
-        //   link: link
-        // }
       })
     })
       .then(res =>
