@@ -5,25 +5,25 @@ import AppContext from '../../contexts/AppContext'
 class AddNewItem extends React.Component {
     constructor(props){
         super(props);
-        this.ref = React.createRef()
+        this.myRef = React.createRef()
     }
 
     static contextType = AppContext;
 
     render() {
-  console.log(this.ref)
+  console.log(this.myRef)
       return (
         <div className='add-new-item'>
           <h2>Add New Item</h2>
           <div className='new-item-link'>
             <label htmlFor='item-link'>Item Url</label>
-            <input type='url' name='item-link' id='item-url' ref={this.ref} required />
+            <input type='url' name='item-link' id='item-url' ref={this.myRef} required />
           </div>
           <button
             className='add-new-item-button'
             id='add-new-item-link'
             onClick={
-              () => {this.props.handleAddNewItem(this.ref.value), console.log(this.ref.value)}
+              () => {this.props.handleAddNewItem(this.myRef.value)}
             }
           >
             Add to List
