@@ -10,6 +10,7 @@ class AddNewItem extends React.Component {
 
   handleClick() {
     this.textInput.current.focus()
+    console.log(this.textInput.current.focus())
   }
 
 
