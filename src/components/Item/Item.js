@@ -7,7 +7,7 @@ class Item extends React.Component {
   static contextType = AppContext;
 
   render() {
-    if (typeof this.props.item == "undefined") {
+    if (typeof this.props.item.item_name === undefined) {
       return (
         <div className='giftlist-item'>
         <h2>{this.props.item.items.item_name}</h2>
