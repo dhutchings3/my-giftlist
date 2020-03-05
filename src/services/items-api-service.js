@@ -6,8 +6,8 @@ const ItemsApiService = {
     return fetch(`${config.API_ENDPOINT}/items`, {
       method: 'POST',
       headers: {
-        'content-type': 'application/json',
-        'authorization': `bearer ${TokenService.getAuthToken()}`,
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
         site_Url: url
